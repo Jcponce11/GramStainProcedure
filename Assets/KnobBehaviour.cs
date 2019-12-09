@@ -26,7 +26,7 @@ public class KnobBehaviour : MonoBehaviour
         ActivateFlameHeat();
     }
 
-    private void ActivateFlameHeat()
+    void ActivateFlameHeat()
     {
         if (isBurnerActive)
             HotArea.SetActive(true);
