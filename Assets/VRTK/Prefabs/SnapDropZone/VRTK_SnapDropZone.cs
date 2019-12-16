@@ -116,7 +116,7 @@ namespace VRTK
         protected bool[] clonedObjectColliderStates = new bool[0];
 
         protected bool willSnap = false;
-        protected bool isSnapped = false;
+        public bool isSnapped = false;
         protected bool wasSnapped = false;
         protected bool isHighlighted = false;
 
