@@ -8,6 +8,8 @@ TagManager:
   - GlassSlide
   - GramPositive
   - GramNegative
+  - DropperTop
+  - InoculationLoop
   layers:
   - Default
   - TransparentFX

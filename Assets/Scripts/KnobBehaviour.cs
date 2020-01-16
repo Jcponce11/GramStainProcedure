@@ -11,12 +11,14 @@ public class KnobBehaviour : MonoBehaviour
     [SerializeField] VRTK_ArtificialRotator BunsenRotater;
     public ParticleSystem particleSystemReference;
     [SerializeField] GameObject HotArea;
+    private GameObject indicatorMaterialObject;
     
 
     // Start is called before the first frame update
     void Start()
     {
         isBurnerActive = false;
+        indicatorMaterialObject = GameObject.Find("Indicator");
     }
 
     // Update is called once per frame
@@ -24,6 +26,7 @@ public class KnobBehaviour : MonoBehaviour
     {
         ActivateFlameParticleSystem();
         ActivateFlameHeat();
+        Debug.Log(indicatorMaterialObject);
     }
 
     void ActivateFlameHeat()
@@ -40,11 +43,13 @@ public class KnobBehaviour : MonoBehaviour
         {
             isBurnerActive = true;
             particleSystemReference.Play();
+            indicatorMaterialObject.GetComponent<Renderer>().material.color = Color.red;
         }
         else if (BunsenRotater.GetNormalizedValue() < .75f)
         {
             isBurnerActive = false;
             particleSystemReference.Stop();
+            indicatorMaterialObject.GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 }

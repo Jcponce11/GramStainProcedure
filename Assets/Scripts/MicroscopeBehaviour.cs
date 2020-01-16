@@ -62,6 +62,7 @@ public class MicroscopeBehaviour : MonoBehaviour
     private void ResetMicroscopeState()
     {
         currentSlideStateMachine = null;
+        loadedSlideGramState = GramState.clean;
     }
 
     /// <summary>

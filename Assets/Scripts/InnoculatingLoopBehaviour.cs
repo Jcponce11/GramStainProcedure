@@ -7,36 +7,76 @@ public class InnoculatingLoopBehaviour : MonoBehaviour
 {
 
     public GramState currentLoopState;
-
+    private Material thisLoopMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentLoopState = GramState.clean;   
+        thisLoopMaterial = GetComponentInParent<Renderer>().material;
     }
 
     // Update is called once per frame
     void Update()
     {
-           
+    
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void Awake()
     {
-        SetGramState(collision);
+        currentLoopState = GramState.clean;
     }
 
-    private void SetGramState(Collider InnoculatorCollider)
+    void OnTriggerEnter(Collider collision)
     {
-        if (InnoculatorCollider.tag == "GramPositive")
+        CheckCollisionTag(collision);
+    }
+
+     void CheckCollisionTag(Collider InnoculatorCollider)
+    {
+        /* if (currentLoopState == GramState.clean)
         {
-            currentLoopState = GramState.gramPositive;
+            if (InnoculatorCollider.tag == "GramPositive" || InnoculatorCollider.tag == "GramNegative")
+            {
+                ChooseGramState(InnoculatorCollider);
+            }
+        }
+        else if (InnoculatorCollider.tag != currentLoopState.ToString() && InnoculatorCollider.tag != "GlassSlide")
+        {
+            Debug.Log("Loop Contaminated! Please Discard this loop and get a fresh one! ");
+            Debug.Log(currentLoopState.ToString());
+            thisLoopMaterial.color = Color.black;
+        } */
+
+        
+        if (InnoculatorCollider.tag == "GramPositive" || InnoculatorCollider.tag == "GramNegative" && currentLoopState == GramState.clean)
+        {
+            if (currentLoopState == GramState.clean)
+            {
+                ChooseGramState(InnoculatorCollider);
+                thisLoopMaterial.color = Color.yellow;
+            }
+            else if(InnoculatorCollider.tag != currentLoopState.ToString())
+            {
+                Debug.Log("Loop Contaminated! Please Discard this loop and get a fresh one! ");
+                Debug.Log(currentLoopState);
+                thisLoopMaterial.color = Color.black;
+            }
+        } 
+    }
+
+    void ChooseGramState(Collider smearedCollision)
+    {
+        if (smearedCollision.tag == "GramPositive")
+        {
+            currentLoopState = GramState.GramPositive;
+
             Debug.Log(currentLoopState);
         }
-        else if (InnoculatorCollider.tag == "GramNegative")
+        else if (smearedCollision.tag == "GramNegative")
         {
-            currentLoopState = GramState.gramNegative;
+            currentLoopState = GramState.GramNegative;
             Debug.Log(currentLoopState);
         }
+        thisLoopMaterial.color = Color.yellow;
     }
 }
